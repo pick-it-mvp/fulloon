@@ -4,6 +4,8 @@ class Svgs {
   Svgs._();
 
   static const String fulloon = 'assets/svgs/Fulloon.svg';
+  static const String myText = 'assets/svgs/My_text.svg';
+  static const String arrowRight = 'assets/svgs/arrow_right.svg';
   static const String bowlHot = 'assets/svgs/bowl-hot.svg';
   static const String breadSlice = 'assets/svgs/bread-slice.svg';
   static const String btnPlus24Grey = 'assets/svgs/btn_plus_24_grey.svg';
@@ -12,6 +14,8 @@ class Svgs {
   static const String chat = 'assets/svgs/chat.svg';
   static const String chatFill = 'assets/svgs/chat_fill.svg';
   static const String cheese = 'assets/svgs/cheese.svg';
+  static const String coin = 'assets/svgs/coin.svg';
+  static const String cookie = 'assets/svgs/cookie.svg';
   static const String eye = 'assets/svgs/eye.svg';
   static const String fish = 'assets/svgs/fish.svg';
   static const String forkKnife = 'assets/svgs/fork_knife.svg';

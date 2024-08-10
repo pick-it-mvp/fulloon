@@ -30,6 +30,13 @@ class PickItTextTheme {
     fontWeight: FontWeight.w700,
     letterSpacing: -0.48,
   );
+  static final bodyBD12Semibold = TextStyle(
+    color: _defaultTextColor,
+    fontFamily: _defaultFontFamily,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w600,
+    letterSpacing: -0.48,
+  );
   static final bodyBD12Regular = TextStyle(
     color: _defaultTextColor,
     fontFamily: _defaultFontFamily,
