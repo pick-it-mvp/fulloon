@@ -10,6 +10,7 @@ import 'package:juction/app/routes/route.dart';
 import 'package:juction/app/widgets/util/tap_well.dart';
 import 'package:juction/resources/resources.dart';
 
+import '../../data/models/search/search.dart';
 import '../root/controller.dart';
 
 class HomePage extends GetView<HomePageController> {
@@ -128,14 +129,14 @@ class HomePage extends GetView<HomePageController> {
             itemCount: controller.searchKeywords.value.length,
             separatorBuilder: (context, index) => const SizedBox(height: 16),
             itemBuilder: (context, index) {
-              Map keyword = controller.searchKeywords.value[index];
+              Search keyword = controller.searchKeywords.value[index];
               return GestureDetector(
                 onTap: () => controller.getSearchResult(index),
                 child: Row(
                   children: [
                     const Icon(Icons.search, color: Color(0xff747474)),
                     const SizedBox(width: 12),
-                    Text("${keyword["name"]}",
+                    Text(keyword.content,
                         style: PickItTextTheme.bodyBD14Regular
                             .copyWith(color: const Color(0xff747474))),
                     const Spacer(),

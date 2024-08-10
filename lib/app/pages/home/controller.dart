@@ -6,6 +6,7 @@ import 'package:juction/app/data/provider/pickit_rest_api_client.dart';
 import 'package:juction/app/data/service/auth/service.dart';
 
 import '../../../resources/resources.dart';
+import '../../data/models/search/search.dart';
 import '../../routes/route.dart';
 
 enum Category {
@@ -42,14 +43,14 @@ class HomePageController extends GetxController with StateMixin {
   bool get isTyping => searchKeyword.value.isNotEmpty;
 
   Rx<List<Map>> searchHistories = Rx<List<Map>>([]);
-  Rx<List<Map>> searchKeywords = Rx<List<Map>>([]);
+  Rx<List<Search>> searchKeywords = Rx<List<Search>>([]);
   Rx<List<Map>> searchResults = Rx<List<Map>>([]);
 
   void getSearchResult(int? index) async {
     Get.toNamed(Routes.result, arguments: {
-      "id": index == null
-          ? searchKeyword.value
-          : searchKeywords.value[index - 1]["id"]
+      "id": index == null && searchKeywords.value.isEmpty
+          ? searchKeywords.value[0].id
+          : index
     });
   }
 
