@@ -5,7 +5,26 @@ import 'package:juction/app/core/util/jwt_decoder.dart';
 import 'package:juction/app/data/provider/pickit_rest_api_client.dart';
 import 'package:juction/app/data/service/auth/service.dart';
 
+import '../../../resources/resources.dart';
 import '../../routes/route.dart';
+
+enum Category {
+  menu("School food", Svgs.forkKnife),
+  snack("Snack", Svgs.cookie),
+  produce("Produce", Svgs.carrot),
+  meat("Meat", Svgs.lovely),
+  fish("Fish", Svgs.fish),
+  meal("Meal", Svgs.breadSlice),
+  cheese("Milk", Svgs.cheese),
+  ramen("Ramen", Svgs.bowlHot),
+  iceCream("Ice Cream", Svgs.iceCream),
+  beverage("Beverage", Svgs.martiniGlass);
+
+  const Category(this.name, this.iconUrl);
+
+  final String name;
+  final String iconUrl;
+}
 
 class HomePageController extends GetxController with StateMixin {
   static HomePageController get to =>
@@ -30,7 +49,7 @@ class HomePageController extends GetxController with StateMixin {
     Get.toNamed(Routes.result, arguments: {
       "id": index == null
           ? searchKeyword.value
-          : searchKeywords.value[index]["id"]
+          : searchKeywords.value[index - 1]["id"]
     });
   }
 
