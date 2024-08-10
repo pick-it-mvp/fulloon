@@ -10,6 +10,8 @@ import 'package:juction/app/routes/route.dart';
 import 'package:juction/app/widgets/util/tap_well.dart';
 import 'package:juction/resources/resources.dart';
 
+import '../root/controller.dart';
+
 class HomePage extends GetView<HomePageController> {
   const HomePage({super.key});
 
@@ -204,24 +206,24 @@ class HomePage extends GetView<HomePageController> {
         const SizedBox(height: 24),
         Image.asset(Images.quizBanner),
         const SizedBox(height: 24),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("💭 Question", style: PickItTextTheme.bodyBD18Semibold),
-                SizedBox(height: 8.w),
-                Text("AI and professional specialists!",
-                    style: PickItTextTheme.bodyBD14Regular),
-              ],
-            ),
-            TapWell(
-              // onTap: () => Get.toNamed(Routes.quest),
-              child: SvgPicture.asset(Svgs.icRightArrow),
-            )
-          ],
+        TapWell(
+          onTap: () => RootPageController.to.changePage(1),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("💭 Question", style: PickItTextTheme.bodyBD18Semibold),
+                  SizedBox(height: 8.w),
+                  Text("AI and professional specialists!",
+                      style: PickItTextTheme.bodyBD14Regular),
+                ],
+              ),
+              SvgPicture.asset(Svgs.icRightArrow)
+            ],
+          ),
         ),
         const SizedBox(height: 16),
         SingleChildScrollView(

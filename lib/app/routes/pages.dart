@@ -1,4 +1,5 @@
 import 'package:get/route_manager.dart';
+import 'package:juction/app/pages/question/binding.dart';
 import 'package:juction/app/pages/root/binding.dart';
 import 'package:juction/app/pages/root/page.dart';
 import 'package:juction/app/pages/search_result/binding.dart';
