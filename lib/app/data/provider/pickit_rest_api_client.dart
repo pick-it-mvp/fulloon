@@ -4,8 +4,10 @@ import 'package:dio/dio.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/instance_manager.dart';
 import 'package:juction/app/core/global_logger.dart';
+import 'package:juction/app/core/util/global_convert.dart';
 import 'package:juction/app/data/service/auth/service.dart';
 import '../environment.dart';
+import '../models/food/food.dart';
 
 part 'pickit_dio_interceptor.dart';
 
@@ -95,9 +97,9 @@ class RestApiClient {
     return (response.data as List).map((e) => e as Map).toList();
   }
 
-  Future<List<Map>> getSearchResult(int id) async {
+  Future<Food?> getSearchResult(int id) async {
     final response = await (await dio).get('/foods/$id');
-    Log.d("getSearchResult: ${response.data}");
-    return (response.data as List).map((e) => e as Map).toList();
+    if (response.statusCode != 200) return null;
+    return Food.fromJson(response.data);
   }
 }
