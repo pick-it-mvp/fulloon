@@ -8,12 +8,12 @@ part 'search.g.dart';
 
 @JsonSerializable()
 class Search {
-  String id;
-  String content;
+  int id;
+  String name;
 
   Search({
     required this.id,
-    required this.content,
+    required this.name,
   });
 
   factory Search.fromJson(Map<String, dynamic> json) => _$SearchFromJson(json);

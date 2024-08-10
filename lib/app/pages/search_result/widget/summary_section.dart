@@ -11,12 +11,7 @@ class SummerySection extends StatelessWidget {
   final String body;
   final bool isStartAlign;
 
-  const SummerySection(
-      {super.key,
-      required this.imojiText,
-      required this.title,
-      required this.body,
-      required this.isStartAlign});
+  const SummerySection({super.key, required this.imojiText, required this.title, required this.body, required this.isStartAlign});
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +28,7 @@ class SummerySection extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
-              crossAxisAlignment: isStartAlign
-                  ? CrossAxisAlignment.start
-                  : CrossAxisAlignment.end,
+              crossAxisAlignment: isStartAlign ? CrossAxisAlignment.start : CrossAxisAlignment.end,
               children: [
                 Text(
                   title,
@@ -51,6 +44,7 @@ class SummerySection extends StatelessWidget {
                     style: PickItTextTheme.bodyBD12Regular.copyWith(
                       color: PickItColors.c121212,
                     ),
+                    maxLines: 4,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),

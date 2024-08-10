@@ -13,7 +13,7 @@ class Food {
   final String desc;
   final String status;
   final String image;
-  final List<String> crawlings;
+  final List<Map> crawlings;
   final List<String>? tips;
   final List<String> tags;
 

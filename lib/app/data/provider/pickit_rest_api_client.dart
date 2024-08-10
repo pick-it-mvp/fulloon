@@ -94,7 +94,7 @@ class RestApiClient {
   }
 
   Future<void> deleteSearchHistory(int id) async {
-    await (await dio).delete('/api/search/$id');
+    await (await dio).delete('/search/$id');
   }
 
   Future<List<Search>> getSearchKeyword(String query) async {
@@ -107,6 +107,9 @@ class RestApiClient {
 
   Future<Food?> getSearchResult(int id) async {
     final response = await (await dio).get('/foods/$id');
+
+    Log.d("getSearchResult: ${response.data}");
+
     if (response.statusCode != 200) return null;
     return Food.fromJson(response.data);
   }
