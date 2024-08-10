@@ -1,6 +1,10 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/instance_manager.dart';
+import 'package:juction/app/core/global_logger.dart';
+import 'package:juction/app/data/service/auth/service.dart';
 import '../environment.dart';
 
 part 'pickit_dio_interceptor.dart';
@@ -70,4 +74,30 @@ class RestApiClient {
   //     'User-Agent': '@@:$appVersion;$osType ($osVersion; $model)',
   //   };
   // }
+
+  Future<List<Map>> getSearchHistory(int id) async {
+    final response = await (await dio).get('/users/$id/search');
+
+    Log.d(response.data.toString());
+
+    return (response.data as List).map((e) => e as Map).toList();
+  }
+
+  Future<void> deleteSearchHistory(int id) async {
+    await (await dio).delete('/api/search/$id');
+  }
+
+  Future<List<Map>> getSearchKeyword(String query) async {
+    final response = await (await dio).get('/search/$query');
+
+    Log.d("getSearchKeyword: ${response.data}");
+
+    return (response.data as List).map((e) => e as Map).toList();
+  }
+
+  Future<List<Map>> getSearchResult(int id) async {
+    final response = await (await dio).get('/foods/$id');
+    Log.d("getSearchResult: ${response.data}");
+    return (response.data as List).map((e) => e as Map).toList();
+  }
 }

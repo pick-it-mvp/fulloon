@@ -8,7 +8,8 @@ class AuthService extends GetxService {
   String? get refreshToken => _refreshToken.value;
 
   Future<AuthService> init() async {
-    // TODO implement init
+    _accessToken.value =
+        "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlck1vZGUiOiJiYWJ5IiwicHJvdmlkZXIiOiJDVVNUT00iLCJlbWFpbCI6ImN1c3RvbTBAY3VzdG9tLmNvbSIsImlhdCI6MTcyMzMxMDMwNCwiZXhwIjoxNzIzOTE1MTA0fQ.ngfaM09OKz5v-3kPnBGK06QJ_2SWio8-uAYzHUl7xZYCZ_dsgOjhODFFlIn04qnLTazSV-vnwz8PcUwMsctJGQ";
     return this;
   }
 

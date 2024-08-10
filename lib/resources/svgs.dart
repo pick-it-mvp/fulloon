@@ -14,7 +14,7 @@ class Svgs {
   static const String cheese = 'assets/svgs/cheese.svg';
   static const String eye = 'assets/svgs/eye.svg';
   static const String fish = 'assets/svgs/fish.svg';
-  static const String forkKnife = 'assets/svgs/fork-knife.svg';
+  static const String forkKnife = 'assets/svgs/fork_knife.svg';
   static const String home = 'assets/svgs/home.svg';
   static const String homeFill = 'assets/svgs/home_fill.svg';
   static const String ibtnBackArrow = 'assets/svgs/ibtn_back_arrow.svg';

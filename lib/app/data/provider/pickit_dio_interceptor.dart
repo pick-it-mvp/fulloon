@@ -8,6 +8,13 @@ class PickitDioInterceptor extends Interceptor {
     if (cookie != null) {
       options.headers['Cookie'] = cookie;
     }
+
+    AuthService authService = Get.find<AuthService>();
+
+    if (authService.accessToken != null) {
+      options.headers['Authorization'] = 'Bearer ${authService.accessToken}';
+    }
+
     return super.onRequest(options, handler);
   }
 
@@ -25,8 +32,7 @@ class PickitDioInterceptor extends Interceptor {
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
     // super.onError(err, handler);
-    if (err.response?.statusCode == 502 ||
-        err.message?.contains("502") == true) {
+    if (err.response?.statusCode == 502 || err.message?.contains("502") == true) {
       //TODO:
       return;
     }
