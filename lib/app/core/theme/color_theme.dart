@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract class PickItColors {
-  static const primaryColor = Color(0xFF01B156);
+  static const primaryColor = Color(0xFFFF0084);
   //TODO: design system 구축 이전이라 hexcode로 작성
   static const Color c000000 = Color(0xff000000);
   static const Color cFFFFFF = Color(0xffFFFFFF);

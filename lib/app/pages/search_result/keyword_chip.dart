@@ -9,12 +9,7 @@ class KeywordChip extends StatelessWidget {
   final Color bgColor;
   final TextStyle textStyle;
 
-  const KeywordChip(
-      {super.key,
-      required this.keyword,
-      required this.padding,
-      required this.bgColor,
-      required this.textStyle});
+  const KeywordChip({super.key, required this.keyword, required this.padding, required this.bgColor, required this.textStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +35,7 @@ class KeywordChip extends StatelessWidget {
         vertical: 4.w,
       ),
       bgColor: PickItColors.c01B156,
-      textStyle: PickItTextTheme.bodyBD02Bold.copyWith(
+      textStyle: PickItTextTheme.bodyBD12Bold.copyWith(
         color: PickItColors.cFFFFFF,
       ),
     );
