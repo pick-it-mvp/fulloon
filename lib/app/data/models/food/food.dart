@@ -13,6 +13,7 @@ class Food {
   final String desc;
   final String status;
   final String image;
+  final Map category;
   final List<Map> crawlings;
   final List<String>? tips;
   final List<String> tags;
@@ -22,6 +23,7 @@ class Food {
     required this.name,
     required this.desc,
     required this.status,
+    required this.category,
     this.tips,
     required this.image,
     required this.tags,

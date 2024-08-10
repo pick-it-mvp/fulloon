@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:juction/app/core/theme/color_theme.dart';
 import 'package:juction/app/core/theme/global_text_styles.dart';
+import 'package:juction/app/data/environment.dart';
 import 'package:juction/app/widgets/util/cached_image.dart';
 import '../../../resources/resources.dart';
 import '../../widgets/util/tap_well.dart';
@@ -222,8 +223,8 @@ class SearchResultScreen extends GetView<SearchResultController> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgPicture.asset(
-              Svgs.lovely,
+            SvgPicture.network(
+              "${Environment.imageBaseUrl}${controller.food.value!.category["image"]}",
               width: 24.w,
               height: 24.w,
               color: PickItColors.cFFFFFF,

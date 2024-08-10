@@ -152,12 +152,12 @@ class HomePage extends GetView<HomePageController> {
               itemBuilder: (context, index) {
                 Map keyword = controller.searchHistories.value[index];
                 return GestureDetector(
-                  onTap: () => controller.getSearchResult(keyword["id"]),
+                  onTap: () => controller.getSearchResult(keyword["food"]["id"]),
                   child: Row(
                     children: [
                       const Icon(Icons.search, color: Color(0xff747474)),
                       const SizedBox(width: 12),
-                      Text("${keyword["content"]}", style: PickItTextTheme.bodyBD14Regular.copyWith(color: const Color(0xff747474))),
+                      Text("${keyword["food"]["name"]}", style: PickItTextTheme.bodyBD14Regular.copyWith(color: const Color(0xff747474))),
                       const Spacer(),
                       GestureDetector(
                           onTap: () {

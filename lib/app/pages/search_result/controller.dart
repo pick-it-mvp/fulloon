@@ -8,10 +8,8 @@ import 'package:juction/app/data/provider/pickit_rest_api_client.dart';
 
 import '../../data/models/food/food.dart';
 
-class SearchResultController extends GetxController
-    with GetTickerProviderStateMixin {
-  static SearchResultController get to =>
-      Get.find<SearchResultController>(); // add this line
+class SearchResultController extends GetxController with GetTickerProviderStateMixin {
+  static SearchResultController get to => Get.find<SearchResultController>(); // add this line
   final id = Get.arguments['id'] ?? -1;
   final List<String> emojis = ["🐷", "🐔", "🐟", "🍔", "🍕", "🍣", "🍜", "🍝"];
   Rx<Food?> food = Rxn(null);
@@ -23,13 +21,12 @@ class SearchResultController extends GetxController
   late final Animation appBarTextTween;
 
   Future<void> search({required int id}) async {
-    food.value = await restApiClient.getSearchResult(id);
+    food.value = await restApiClient.getSearchResult(id, search: true);
   }
 
   /// ### 스크롤시 앱바의 색상을 투명 -> 검은색으로 바꿔주기 위한 이벤트 리스너
   bool scrollListener() {
-    colorAnimationController
-        .animateTo(scrollController.position.pixels / 208.w);
+    colorAnimationController.animateTo(scrollController.position.pixels / 208.w);
     return true;
   }
 
