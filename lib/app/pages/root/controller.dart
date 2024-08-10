@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:juction/app/pages/home/page.dart';
+import 'package:juction/app/pages/question/page.dart';
 
 class RootPageController extends GetxController with StateMixin {
   static RootPageController get to => Get.find<RootPageController>(); // add this line
@@ -8,11 +9,11 @@ class RootPageController extends GetxController with StateMixin {
   final _pageIndex = 0.obs;
   int get pageIndex => _pageIndex.value;
 
-  final _pages = ["/home", "/chat", "/my"];
+  final _pages = ["/home", "/question", "/my"];
 
   List<Widget> pages = [
     const HomePage(),
-    Container(color: Colors.green),
+    const QuestionPage(),
     Container(color: Colors.blue),
   ];
 
