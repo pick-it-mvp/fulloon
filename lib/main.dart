@@ -24,7 +24,7 @@ class PickItApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 760),
+      designSize: const Size(390, 760),
       builder: (context, __) => GetMaterialApp(
         title: 'PickIt',
         getPages: AppPages.pages,
@@ -38,7 +38,7 @@ class PickItApp extends StatelessWidget {
         ],
         localizationsDelegates: [GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate],
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.root,
+        initialRoute: Routes.result,
         initialBinding: SearchResultBinding(),
         smartManagement: SmartManagement.full,
         navigatorKey: Get.key,
