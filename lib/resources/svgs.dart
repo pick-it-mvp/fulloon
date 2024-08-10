@@ -7,6 +7,7 @@ class Svgs {
   static const String question = 'assets/svgs/Question.svg';
   static const String myText = 'assets/svgs/My_text.svg';
   static const String arrowRight = 'assets/svgs/arrow_right.svg';
+  static const String beverage = 'assets/svgs/beverage.svg';
   static const String bowlHot = 'assets/svgs/bowl-hot.svg';
   static const String breadSlice = 'assets/svgs/bread-slice.svg';
   static const String btnPlus24Grey = 'assets/svgs/btn_plus_24_grey.svg';
@@ -15,9 +16,9 @@ class Svgs {
   static const String chat = 'assets/svgs/chat.svg';
   static const String chatFill = 'assets/svgs/chat_fill.svg';
   static const String cheese = 'assets/svgs/cheese.svg';
+  static const String cookie = 'assets/svgs/cookie.svg';
   static const String edit = 'assets/svgs/edit.svg';
   static const String coin = 'assets/svgs/coin.svg';
-  static const String cookie = 'assets/svgs/cookie.svg';
   static const String eye = 'assets/svgs/eye.svg';
   static const String fish = 'assets/svgs/fish.svg';
   static const String forkKnife = 'assets/svgs/fork_knife.svg';
@@ -25,6 +26,7 @@ class Svgs {
   static const String homeFill = 'assets/svgs/home_fill.svg';
   static const String ibtnBackArrow = 'assets/svgs/ibtn_back_arrow.svg';
   static const String icLeftArrow = 'assets/svgs/ic_left_arrow.svg';
+  static const String icRightArrow = 'assets/svgs/ic_right_arrow.svg';
   static const String icSearch = 'assets/svgs/ic_search.svg';
   static const String iceCream = 'assets/svgs/ice-cream.svg';
   static const String like = 'assets/svgs/like.svg';

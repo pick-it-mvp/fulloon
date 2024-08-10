@@ -102,4 +102,10 @@ class RestApiClient {
     if (response.statusCode != 200) return null;
     return Food.fromJson(response.data);
   }
+
+  Future<Food?> getCategories(int id) async {
+    final response = await (await dio).get('/foods/categories/$id');
+    if (response.statusCode != 200) return null;
+    return Food.fromJson(response.data);
+  }
 }
