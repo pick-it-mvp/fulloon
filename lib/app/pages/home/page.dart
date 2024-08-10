@@ -27,7 +27,8 @@ class HomePage extends GetView<HomePageController> {
         onEditingComplete: () => controller.getSearchResult,
         focusNode: controller.focusNode,
         cursorColor: PickItColors.primaryColor,
-        style: PickItTextTheme.bodyBD16Medium.copyWith(color: PickItColors.primaryColor),
+        style: PickItTextTheme.bodyBD16Medium
+            .copyWith(color: PickItColors.primaryColor),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(24),
           hintText: "Search",
@@ -35,8 +36,10 @@ class HomePage extends GetView<HomePageController> {
             padding: EdgeInsets.only(left: 16),
             child: Icon(Icons.search, color: Colors.black),
           ),
-          hintStyle: PickItTextTheme.bodyBD16Medium.copyWith(color: PickItColors.primaryColor),
-          labelStyle: PickItTextTheme.bodyBD16Medium.copyWith(color: PickItColors.primaryColor),
+          hintStyle: PickItTextTheme.bodyBD16Medium
+              .copyWith(color: PickItColors.primaryColor),
+          labelStyle: PickItTextTheme.bodyBD16Medium
+              .copyWith(color: PickItColors.primaryColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(33.5),
           ),
@@ -64,7 +67,9 @@ class HomePage extends GetView<HomePageController> {
         extendBodyBehindAppBar: true,
         body: Container(
           width: double.infinity,
-          decoration: const BoxDecoration(image: DecorationImage(image: AssetImage(Images.background), fit: BoxFit.fitWidth)),
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(Images.background), fit: BoxFit.fitWidth)),
           child: SafeArea(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -87,10 +92,13 @@ class HomePage extends GetView<HomePageController> {
                   width: double.infinity,
                   decoration: const BoxDecoration(
                     color: Color(0xffFAFAFA),
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24)),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 24),
                     child: Obx(() {
                       if (controller.isTyping) {
                         return _isTyping();
@@ -128,7 +136,9 @@ class HomePage extends GetView<HomePageController> {
                   children: [
                     const Icon(Icons.search, color: Color(0xff747474)),
                     const SizedBox(width: 12),
-                    Text(keyword.name, style: PickItTextTheme.bodyBD14Regular.copyWith(color: const Color(0xff747474))),
+                    Text(keyword.name ?? "",
+                        style: PickItTextTheme.bodyBD14Regular
+                            .copyWith(color: const Color(0xff747474))),
                     const Spacer(),
                   ],
                 ),
@@ -152,12 +162,12 @@ class HomePage extends GetView<HomePageController> {
               itemBuilder: (context, index) {
                 Search keyword = controller.searchHistories.value[index];
                 return GestureDetector(
-                  onTap: () => controller.getSearchResult(keyword["id"]),
+                  onTap: () => controller.getSearchResult(keyword.id),
                   child: Row(
                     children: [
                       const Icon(Icons.search, color: Color(0xff747474)),
                       const SizedBox(width: 12),
-                      Text(keyword.content ?? "",
+                      Text(keyword.name ?? "",
                           style: PickItTextTheme.bodyBD14Regular
                               .copyWith(color: const Color(0xff747474))),
                       const Spacer(),
@@ -165,7 +175,8 @@ class HomePage extends GetView<HomePageController> {
                           onTap: () {
                             controller.deleteSearchHistory(keyword.id);
                           },
-                          child: Icon(Icons.close, color: const Color(0xff747474))),
+                          child: Icon(Icons.close,
+                              color: const Color(0xff747474))),
                     ],
                   ),
                 );
@@ -210,7 +221,8 @@ class HomePage extends GetView<HomePageController> {
                 children: [
                   Text("💭 Question", style: PickItTextTheme.bodyBD18Semibold),
                   SizedBox(height: 8.w),
-                  Text("AI and professional specialists!", style: PickItTextTheme.bodyBD14Regular),
+                  Text("AI and professional specialists!",
+                      style: PickItTextTheme.bodyBD14Regular),
                 ],
               ),
               SvgPicture.asset(Svgs.icRightArrow)
@@ -224,7 +236,8 @@ class HomePage extends GetView<HomePageController> {
             children: [
               const QuestionCard(svg_file: Svgs.chartNetwork, title: "AI"),
               const SizedBox(width: 16),
-              const QuestionCard(svg_file: Svgs.userShield, title: "Specialist"),
+              const QuestionCard(
+                  svg_file: Svgs.userShield, title: "Specialist"),
             ],
           ),
         )
@@ -255,11 +268,15 @@ class CategoryItem extends StatelessWidget {
             width: 52,
             height: 52,
             alignment: Alignment.center,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: const Color(0xfff5f5f5)),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: const Color(0xfff5f5f5)),
             child: SvgPicture.asset(svg_file, width: 24, height: 24),
           ),
           const SizedBox(height: 4),
-          Text(title, style: PickItTextTheme.bodyBD10Medium.copyWith(color: const Color(0xff626262))),
+          Text(title,
+              style: PickItTextTheme.bodyBD10Medium
+                  .copyWith(color: const Color(0xff626262))),
         ],
       ),
     );
@@ -294,22 +311,32 @@ class QuestionCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    SizedBox(width: 16, height: 16, child: SvgPicture.asset(svg_file)),
+                    SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: SvgPicture.asset(svg_file)),
                     const SizedBox(width: 8),
-                    Text(title, style: PickItTextTheme.bodyBD16Medium.copyWith(color: PickItColors.primaryColor)),
+                    Text(title,
+                        style: PickItTextTheme.bodyBD16Medium
+                            .copyWith(color: PickItColors.primaryColor)),
                   ],
                 ),
                 const SizedBox(height: 16),
-                Text("What is the best food for your health?", style: PickItTextTheme.bodyBD14Regular),
+                Text("What is the best food for your health?",
+                    style: PickItTextTheme.bodyBD14Regular),
                 const SizedBox(height: 16),
                 Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                   SvgPicture.asset(Svgs.eye),
                   const SizedBox(width: 4),
-                  Text("42,452", style: PickItTextTheme.bodyBD10Regular.copyWith(color: PickItColors.primaryColor)),
+                  Text("42,452",
+                      style: PickItTextTheme.bodyBD10Regular
+                          .copyWith(color: PickItColors.primaryColor)),
                   const SizedBox(width: 4),
                   SvgPicture.asset(Svgs.like),
                   const SizedBox(width: 4),
-                  Text("3,523", style: PickItTextTheme.bodyBD10Regular.copyWith(color: PickItColors.primaryColor)),
+                  Text("3,523",
+                      style: PickItTextTheme.bodyBD10Regular
+                          .copyWith(color: PickItColors.primaryColor)),
                 ]),
               ],
             ),
