@@ -24,6 +24,8 @@ class Svgs {
   static const String home = 'assets/svgs/home.svg';
   static const String homeFill = 'assets/svgs/home_fill.svg';
   static const String ibtnBackArrow = 'assets/svgs/ibtn_back_arrow.svg';
+  static const String icLeftArrow = 'assets/svgs/ic_left_arrow.svg';
+  static const String icSearch = 'assets/svgs/ic_search.svg';
   static const String iceCream = 'assets/svgs/ice-cream.svg';
   static const String like = 'assets/svgs/like.svg';
   static const String lovely = 'assets/svgs/lovely.svg';
