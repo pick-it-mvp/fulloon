@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/theme/color_theme.dart';
 import '../../core/theme/global_text_styles.dart';
 
-
 ///* global textfield
 class GlobalTextField extends StatelessWidget {
   final Function(String) onSubmitSearch;
@@ -73,8 +72,8 @@ class GlobalTextField extends StatelessWidget {
       onSubmitSearch: onSubmitSearch,
       backgroundColor: PickItColors.c353535,
       placeholderMsg: "테마명을 입력해주세요",
-      searchTextStyle: PickItTextTheme.bodyBD02Bold,
-      placeholderStyle: PickItTextTheme.bodyBD02Bold,
+      searchTextStyle: PickItTextTheme.bodyBD12Bold,
+      placeholderStyle: PickItTextTheme.bodyBD12Bold,
     );
   }
 }
