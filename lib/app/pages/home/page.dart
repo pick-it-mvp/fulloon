@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:juction/app/core/global_logger.dart';
@@ -6,7 +7,11 @@ import 'package:juction/app/core/theme/color_theme.dart';
 import 'package:juction/app/core/theme/global_text_styles.dart';
 import 'package:juction/app/pages/home/controller.dart';
 import 'package:juction/app/routes/route.dart';
+import 'package:juction/app/widgets/util/tap_well.dart';
 import 'package:juction/resources/resources.dart';
+
+import '../../data/models/search/search.dart';
+import '../root/controller.dart';
 
 class HomePage extends GetView<HomePageController> {
   const HomePage({super.key});
@@ -19,7 +24,7 @@ class HomePage extends GetView<HomePageController> {
       ),
       child: TextField(
         controller: controller.textEditingController,
-        onEditingComplete: controller.search,
+        onEditingComplete: () => controller.getSearchResult,
         focusNode: controller.focusNode,
         cursorColor: PickItColors.primaryColor,
         style: PickItTextTheme.bodyBD16Medium.copyWith(color: PickItColors.primaryColor),
@@ -116,16 +121,14 @@ class HomePage extends GetView<HomePageController> {
             itemCount: controller.searchKeywords.value.length,
             separatorBuilder: (context, index) => const SizedBox(height: 16),
             itemBuilder: (context, index) {
-              Map keyword = controller.searchKeywords.value[index];
+              Search keyword = controller.searchKeywords.value[index];
               return GestureDetector(
-                onTap: () {
-                  controller.search(id: keyword["id"]);
-                },
+                onTap: () => controller.getSearchResult(keyword.id),
                 child: Row(
                   children: [
                     const Icon(Icons.search, color: Color(0xff747474)),
                     const SizedBox(width: 12),
-                    Text("${keyword["name"]}", style: PickItTextTheme.bodyBD14Regular.copyWith(color: const Color(0xff747474))),
+                    Text(keyword.name, style: PickItTextTheme.bodyBD14Regular.copyWith(color: const Color(0xff747474))),
                     const Spacer(),
                   ],
                 ),
@@ -149,9 +152,7 @@ class HomePage extends GetView<HomePageController> {
               itemBuilder: (context, index) {
                 Map keyword = controller.searchHistories.value[index];
                 return GestureDetector(
-                  onTap: () {
-                    controller.search(id: keyword["id"]);
-                  },
+                  onTap: () => controller.getSearchResult(keyword["id"]),
                   child: Row(
                     children: [
                       const Icon(Icons.search, color: Color(0xff747474)),
@@ -180,26 +181,37 @@ class HomePage extends GetView<HomePageController> {
           child: Wrap(
             spacing: 16,
             runSpacing: 16,
-            children: [
-              const CategoryItem(svg_file: Svgs.menu, title: "Full View"),
-              const CategoryItem(svg_file: Svgs.forkKnife, title: "School Food"),
-              const CategoryItem(svg_file: Svgs.carrot, title: "Fruit"),
-              const CategoryItem(svg_file: Svgs.lovely, title: "Meat"),
-              const CategoryItem(svg_file: Svgs.fish, title: "Fish"),
-              const CategoryItem(svg_file: Svgs.breadSlice, title: "Meal"),
-              const CategoryItem(svg_file: Svgs.cheese, title: "Milk"),
-              const CategoryItem(svg_file: Svgs.bowlHot, title: "Ramen"),
-              const CategoryItem(svg_file: Svgs.iceCream, title: "Ice Cream"),
-              const CategoryItem(svg_file: Svgs.martiniGlass, title: "Beverage"),
-            ],
+            children: List.generate(
+              Category.values.length,
+              (idx) => CategoryItem(
+                svg_file: Category.values[idx].iconUrl,
+                title: Category.values[idx].name,
+                getSearch: () => controller.getSearchResult(idx),
+              ),
+            ),
           ),
         ),
         const SizedBox(height: 24),
         Image.asset(Images.quizBanner),
         const SizedBox(height: 24),
-        Text("💭 Question", style: PickItTextTheme.bodyBD18Semibold),
-        const SizedBox(height: 8),
-        Text("AI and professional specialists!", style: PickItTextTheme.bodyBD14Regular),
+        TapWell(
+          onTap: () => RootPageController.to.changePage(1),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("💭 Question", style: PickItTextTheme.bodyBD18Semibold),
+                  SizedBox(height: 8.w),
+                  Text("AI and professional specialists!", style: PickItTextTheme.bodyBD14Regular),
+                ],
+              ),
+              SvgPicture.asset(Svgs.icRightArrow)
+            ],
+          ),
+        ),
         const SizedBox(height: 16),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -221,25 +233,30 @@ class CategoryItem extends StatelessWidget {
     super.key,
     required this.svg_file,
     required this.title,
+    required this.getSearch,
   });
 
   final String svg_file;
   final String title;
+  final VoidCallback getSearch;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 52,
-          height: 52,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: const Color(0xfff5f5f5)),
-          child: SvgPicture.asset(svg_file, width: 24, height: 24),
-        ),
-        const SizedBox(height: 4),
-        Text(title, style: PickItTextTheme.bodyBD10Medium.copyWith(color: const Color(0xff626262))),
-      ],
+    return TapWell(
+      onTap: () => getSearch,
+      child: Column(
+        children: [
+          Container(
+            width: 52,
+            height: 52,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: const Color(0xfff5f5f5)),
+            child: SvgPicture.asset(svg_file, width: 24, height: 24),
+          ),
+          const SizedBox(height: 4),
+          Text(title, style: PickItTextTheme.bodyBD10Medium.copyWith(color: const Color(0xff626262))),
+        ],
+      ),
     );
   }
 }

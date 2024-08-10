@@ -5,8 +5,31 @@ import 'package:juction/app/core/util/jwt_decoder.dart';
 import 'package:juction/app/data/provider/pickit_rest_api_client.dart';
 import 'package:juction/app/data/service/auth/service.dart';
 
+import '../../../resources/resources.dart';
+import '../../data/models/search/search.dart';
+import '../../routes/route.dart';
+
+enum Category {
+  menu("School food", Svgs.forkKnife),
+  snack("Snack", Svgs.cookie),
+  produce("Produce", Svgs.carrot),
+  meat("Meat", Svgs.lovely),
+  fish("Fish", Svgs.fish),
+  meal("Meal", Svgs.breadSlice),
+  cheese("Milk", Svgs.cheese),
+  ramen("Ramen", Svgs.bowlHot),
+  iceCream("Ice Cream", Svgs.iceCream),
+  beverage("Beverage", Svgs.martiniGlass);
+
+  const Category(this.name, this.iconUrl);
+
+  final String name;
+  final String iconUrl;
+}
+
 class HomePageController extends GetxController with StateMixin {
-  static HomePageController get to => Get.find<HomePageController>(); // add this line
+  static HomePageController get to =>
+      Get.find<HomePageController>(); // add this line
 
   final FocusNode focusNode = FocusNode();
   final TextEditingController textEditingController = TextEditingController();
@@ -16,11 +39,20 @@ class HomePageController extends GetxController with StateMixin {
   final RestApiClient restApiClient = RestApiClient();
 
   Rx<bool> isSearching = false.obs;
+
   bool get isTyping => searchKeyword.value.isNotEmpty;
 
   Rx<List<Map>> searchHistories = Rx<List<Map>>([]);
-  Rx<List<Map>> searchKeywords = Rx<List<Map>>([]);
+  Rx<List<Search>> searchKeywords = Rx<List<Search>>([]);
   Rx<List<Map>> searchResults = Rx<List<Map>>([]);
+
+  void getSearchResult(int? index) async {
+    Get.toNamed(Routes.result, arguments: {
+      "id": index == null && searchKeywords.value.isEmpty
+          ? searchKeywords.value[0].id
+          : index
+    });
+  }
 
   @override
   void onInit() {
@@ -37,17 +69,10 @@ class HomePageController extends GetxController with StateMixin {
     textEditingController.addListener(() async {
       searchKeyword.value = textEditingController.text;
       if (searchKeyword.value.isNotEmpty) {
-        searchKeywords.value = await restApiClient.getSearchKeyword(textEditingController.text);
+        searchKeywords.value =
+            await restApiClient.getSearchKeyword(textEditingController.text);
       }
     });
-  }
-
-  void search({int? id}) async {
-    if (id == null && searchKeywords.value.isEmpty) {
-      searchResults.value = await restApiClient.getSearchResult(searchKeywords.value[0]["id"]);
-    } else if (id != null) {
-      searchResults.value = await restApiClient.getSearchResult(id);
-    }
   }
 
   void clearSearchKeyword() {

@@ -8,16 +8,24 @@ part 'food.g.dart';
 
 @JsonSerializable()
 class Food {
-  int id;
-  String name;
-  String imgUrl;
-  List<String> nutrients;
+  final int id;
+  final String name;
+  final String desc;
+  final String status;
+  final String image;
+  final List<Map> crawlings;
+  final List<String>? tips;
+  final List<String> tags;
 
   Food({
     required this.id,
     required this.name,
-    required this.imgUrl,
-    required this.nutrients,
+    required this.desc,
+    required this.status,
+    this.tips,
+    required this.image,
+    required this.tags,
+    required this.crawlings,
   });
 
   factory Food.fromJson(Map<String, dynamic> json) => _$FoodFromJson(json);
