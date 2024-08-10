@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:juction/app/pages/home/page.dart';
+import 'package:juction/app/pages/question/page.dart';
 import 'package:juction/app/pages/my/page.dart';
 
 class RootPageController extends GetxController with StateMixin {
@@ -9,9 +10,14 @@ class RootPageController extends GetxController with StateMixin {
   final _pageIndex = 0.obs;
   int get pageIndex => _pageIndex.value;
 
-  final _pages = ["/home", "/chat", "/my"];
+  final _pages = ["/home", "/question", "/my"];
 
-  List<Widget> pages = [const HomePage(), Container(color: Colors.green), const MyPage()];
+  List<Widget> pages = [
+    const HomePage(),
+    const QuestionPage(),
+    const MyPage()  
+  ];
+
 
   void changePage(int index) {
     if (_pageIndex.value == index) return;
