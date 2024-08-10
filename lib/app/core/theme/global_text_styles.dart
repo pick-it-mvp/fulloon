@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 const _defaultTextColor = Color(0xFFE3E3E3);
 //TODO: font family 사용하는걸로 변경
-const _defaultFontFamily = 'SpoqaHanSansNeo';
+const _defaultFontFamily = 'Pretendard';
 
 class PickItTextTheme {
   PickItTextTheme._();
@@ -33,8 +33,8 @@ class PickItTextTheme {
   static final TextStyle bodyBD03Regular = TextStyle(
     color: _defaultTextColor,
     fontFamily: _defaultFontFamily,
-    fontSize: 11.sp,
-    fontWeight: FontWeight.w400,
+    fontSize: 40.sp,
+    fontWeight: FontWeight.bold,
     letterSpacing: -0.04,
   );
 }
