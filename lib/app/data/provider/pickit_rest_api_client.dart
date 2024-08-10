@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/instance_manager.dart';
 import 'package:juction/app/core/global_logger.dart';
@@ -8,8 +9,11 @@ import 'package:juction/app/core/util/global_convert.dart';
 import 'package:juction/app/data/service/auth/service.dart';
 import '../environment.dart';
 import '../models/food/food.dart';
+import '../models/search/search.dart';
 
 part 'pickit_dio_interceptor.dart';
+
+part 'pick_it_log_interceptor.dart';
 
 class RestApiClient {
   // 팩토리(싱글톤) 객체생성
@@ -49,7 +53,11 @@ class RestApiClient {
             : null,
         contentType: ContentType.json.mimeType,
       ),
-    )..interceptors.add(
+    )
+      ..interceptors.add(
+        PickitDioInterceptor(),
+      )
+      ..interceptors.add(
         PickitDioInterceptor(),
       );
   }
@@ -89,12 +97,12 @@ class RestApiClient {
     await (await dio).delete('/api/search/$id');
   }
 
-  Future<List<Map>> getSearchKeyword(String query) async {
+  Future<List<Search>> getSearchKeyword(String query) async {
     final response = await (await dio).get('/search/$query');
 
     Log.d("getSearchKeyword: ${response.data}");
 
-    return (response.data as List).map((e) => e as Map).toList();
+    return jsonToListLessDepth(response.data, Search.fromJson) ?? [];
   }
 
   Future<Food?> getSearchResult(int id) async {
