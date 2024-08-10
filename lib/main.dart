@@ -36,10 +36,13 @@ class PickItApp extends StatelessWidget {
         supportedLocales: const [
           Locale('ko', 'KR'),
         ],
-        localizationsDelegates: [GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate],
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.result,
-        initialBinding: SearchResultBinding(),
+        initialRoute: Routes.root,
+        initialBinding: RootPageBinding(),
         smartManagement: SmartManagement.full,
         navigatorKey: Get.key,
       ),

@@ -39,7 +39,7 @@ class PickItItemListView extends StatelessWidget {
                       ),
                       clipBehavior: Clip.hardEdge,
                       child: CachedImage(
-                        url: food.imgUrl,
+                        url: food.image,
                         width: 86.w,
                         height: 86.w,
                       ),
@@ -56,9 +56,9 @@ class PickItItemListView extends StatelessWidget {
                     ),
                     Wrap(
                       children: List.generate(
-                        food.nutrients.length,
+                        food.tags.length,
                         (idx) => KeywordChip.green(
-                          food.nutrients[idx],
+                          food.tags[idx],
                           idx: idx,
                         ),
                       ),
