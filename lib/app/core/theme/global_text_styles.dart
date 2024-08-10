@@ -75,6 +75,13 @@ class PickItTextTheme {
     fontWeight: FontWeight.w500,
     letterSpacing: -0.52,
   );
+  static final bodyBD18Medium = TextStyle(
+    color: _defaultTextColor,
+    fontFamily: _defaultFontFamily,
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w500,
+    letterSpacing: -0.52,
+  );
 
   static final bodyBD10Medium = TextStyle(
     color: _defaultTextColor,

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:juction/app/core/theme/color_theme.dart';
 import 'package:juction/app/core/theme/global_text_styles.dart';
 import 'package:juction/app/pages/question/controller.dart';
+import 'package:juction/app/pages/question/view/detail.dart';
 import 'package:juction/resources/resources.dart';
 
 class QuestionPage extends GetView<QuestionPageController> {
@@ -65,6 +66,10 @@ class QuestionPage extends GetView<QuestionPageController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("🔍 Search", style: PickItTextTheme.bodyBD20Semibold),
+                      GestureDetector(
+                        onTap: () => Get.to(() => const QuestionDetailPage()),
+                        child: SvgPicture.asset(Svgs.arrowRight),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 16),
