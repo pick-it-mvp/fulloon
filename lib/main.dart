@@ -4,16 +4,20 @@ import 'package:get/route_manager.dart';
 import 'package:juction/app/core/theme/color_theme.dart';
 import 'package:juction/app/data/initalize.dart';
 import 'package:juction/app/pages/root/binding.dart';
+import 'package:juction/app/pages/search_result/binding.dart';
 import 'package:juction/app/routes/pages.dart';
 import 'package:juction/app/routes/route.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await AppInitalizer().init();
+
   /// .env 파일 로딩
   runApp(const PickItApp());
 }
+
 class PickItApp extends StatelessWidget {
   const PickItApp({super.key});
 
@@ -21,7 +25,7 @@ class PickItApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(360, 760),
-      builder: (context, __) =>GetMaterialApp(
+      builder: (context, __) => GetMaterialApp(
         title: 'PickIt',
         getPages: AppPages.pages,
         theme: ThemeData(
@@ -32,16 +36,16 @@ class PickItApp extends StatelessWidget {
         supportedLocales: const [
           Locale('ko', 'KR'),
         ],
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.root,
-        initialBinding: RootPageBinding(),
+        initialRoute: Routes.result,
+        initialBinding: SearchResultBinding(),
         smartManagement: SmartManagement.full,
         navigatorKey: Get.key,
-
       ),
-
     );
   }
 }
-
-

@@ -10,4 +10,5 @@ abstract class PickItColors {
   static const Color c555555 = Color(0xff555555);
   static const Color c353535 = Color(0xff353535);
   static const Color cE1FE70 = Color(0xffE1FE70);
+  static const Color c01B156 = Color(0xff01B156);
 }
