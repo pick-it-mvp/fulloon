@@ -9,7 +9,7 @@ part 'search.g.dart';
 @JsonSerializable()
 class Search {
   int id;
-  String name;
+  String? content;
 
   Search({
     required this.id,

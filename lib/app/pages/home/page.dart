@@ -150,18 +150,20 @@ class HomePage extends GetView<HomePageController> {
               itemCount: controller.searchHistories.value.length,
               separatorBuilder: (context, index) => const SizedBox(height: 16),
               itemBuilder: (context, index) {
-                Map keyword = controller.searchHistories.value[index];
+                Search keyword = controller.searchHistories.value[index];
                 return GestureDetector(
                   onTap: () => controller.getSearchResult(keyword["id"]),
                   child: Row(
                     children: [
                       const Icon(Icons.search, color: Color(0xff747474)),
                       const SizedBox(width: 12),
-                      Text("${keyword["content"]}", style: PickItTextTheme.bodyBD14Regular.copyWith(color: const Color(0xff747474))),
+                      Text(keyword.content ?? "",
+                          style: PickItTextTheme.bodyBD14Regular
+                              .copyWith(color: const Color(0xff747474))),
                       const Spacer(),
                       GestureDetector(
                           onTap: () {
-                            controller.deleteSearchHistory(keyword["id"]);
+                            controller.deleteSearchHistory(keyword.id);
                           },
                           child: Icon(Icons.close, color: const Color(0xff747474))),
                     ],
@@ -186,7 +188,10 @@ class HomePage extends GetView<HomePageController> {
               (idx) => CategoryItem(
                 svg_file: Category.values[idx].iconUrl,
                 title: Category.values[idx].name,
-                getSearch: () => controller.getSearchResult(idx),
+                getSearch: () => Get.toNamed(
+                  Routes.category,
+                  arguments: Category.values[idx],
+                ),
               ),
             ),
           ),
@@ -243,7 +248,7 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TapWell(
-      onTap: () => getSearch,
+      onTap: getSearch,
       child: Column(
         children: [
           Container(

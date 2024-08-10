@@ -10,21 +10,22 @@ import '../../data/models/search/search.dart';
 import '../../routes/route.dart';
 
 enum Category {
-  menu("School food", Svgs.forkKnife),
-  snack("Snack", Svgs.cookie),
-  produce("Produce", Svgs.carrot),
-  meat("Meat", Svgs.lovely),
-  fish("Fish", Svgs.fish),
-  meal("Meal", Svgs.breadSlice),
-  cheese("Milk", Svgs.cheese),
-  ramen("Ramen", Svgs.bowlHot),
-  iceCream("Ice Cream", Svgs.iceCream),
-  beverage("Beverage", Svgs.martiniGlass);
+  menu("School food", Svgs.forkKnife, 1),
+  snack("Snack", Svgs.cookie, 2),
+  produce("Produce", Svgs.carrot, 3),
+  meat("Meat", Svgs.lovely, 4),
+  fish("Fish", Svgs.fish, 5),
+  meal("Meal", Svgs.breadSlice, 6),
+  cheese("Milk", Svgs.cheese, 7),
+  ramen("Ramen", Svgs.bowlHot, 8),
+  iceCream("Ice Cream", Svgs.iceCream, 9),
+  beverage("Beverage", Svgs.martiniGlass, 10);
 
-  const Category(this.name, this.iconUrl);
+  const Category(this.name, this.iconUrl, this.id);
 
   final String name;
   final String iconUrl;
+  final int id;
 }
 
 class HomePageController extends GetxController with StateMixin {
@@ -42,16 +43,16 @@ class HomePageController extends GetxController with StateMixin {
 
   bool get isTyping => searchKeyword.value.isNotEmpty;
 
-  Rx<List<Map>> searchHistories = Rx<List<Map>>([]);
+  Rx<List<Search>> searchHistories = Rx<List<Search>>([]);
   Rx<List<Search>> searchKeywords = Rx<List<Search>>([]);
   Rx<List<Map>> searchResults = Rx<List<Map>>([]);
 
   void getSearchResult(int? index) async {
-    Get.toNamed(Routes.result, arguments: {
-      "id": index == null && searchKeywords.value.isEmpty
-          ? searchKeywords.value[0].id
-          : index
-    });
+    if (index == null && searchKeywords.value.isNotEmpty) {
+      Get.toNamed(Routes.result, arguments: {"id": searchKeywords.value[0].id});
+    } else {
+      //TODO: 404 page 예외 화면으로 이동
+    }
   }
 
   @override
@@ -83,7 +84,7 @@ class HomePageController extends GetxController with StateMixin {
 
   void deleteSearchHistory(int id) async {
     await restApiClient.deleteSearchHistory(id);
-    searchHistories.value.removeWhere((element) => element["id"] == id);
+    searchHistories.value.removeWhere((element) => element.id == id);
     searchHistories.refresh();
   }
 }
