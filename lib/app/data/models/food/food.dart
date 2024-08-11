@@ -16,6 +16,7 @@ class Food {
   final List<Map> crawlings;
   final List<String>? tips;
   final List<String> tags;
+  final CategoryImg? category;
 
   Food({
     required this.id,
@@ -23,6 +24,7 @@ class Food {
     required this.desc,
     required this.status,
     this.tips,
+    required this.category,
     required this.image,
     required this.tags,
     required this.crawlings,
@@ -31,4 +33,18 @@ class Food {
   factory Food.fromJson(Map<String, dynamic> json) => _$FoodFromJson(json);
 
   Map<String, dynamic> toJson() => _$FoodToJson(this);
+}
+
+@JsonSerializable()
+class CategoryImg {
+  final String image;
+
+  CategoryImg({
+    required this.image,
+  });
+
+  factory CategoryImg.fromJson(Map<String, dynamic> json) =>
+      _$CategoryImgFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CategoryImgToJson(this);
 }

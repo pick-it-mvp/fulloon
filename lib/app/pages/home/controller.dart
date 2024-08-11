@@ -11,15 +11,15 @@ import '../../routes/route.dart';
 
 enum Category {
   menu("School food", Svgs.forkKnife, 1),
-  snack("Snack", Svgs.cookie, 2),
-  produce("Produce", Svgs.carrot, 3),
-  meat("Meat", Svgs.lovely, 4),
-  fish("Fish", Svgs.fish, 5),
-  meal("Meal", Svgs.breadSlice, 6),
-  cheese("Milk", Svgs.cheese, 7),
-  ramen("Ramen", Svgs.bowlHot, 8),
-  iceCream("Ice Cream", Svgs.iceCream, 9),
-  beverage("Beverage", Svgs.martiniGlass, 10);
+  snack("Snack", Svgs.cookie, 10),
+  produce("Produce", Svgs.carrot, 2),
+  meat("Meat", Svgs.lovely, 3),
+  fish("Fish", Svgs.fish, 4),
+  meal("Meal", Svgs.breadSlice, 5),
+  cheese("Milk", Svgs.cheese, 6),
+  ramen("Instant", Svgs.bowlHot, 7),
+  iceCream("Ice Cream", Svgs.iceCream, 8),
+  beverage("Beverage", Svgs.martiniGlass, 9);
 
   const Category(this.name, this.iconUrl, this.id);
 
@@ -47,13 +47,21 @@ class HomePageController extends GetxController with StateMixin {
   Rx<List<Search>> searchKeywords = Rx<List<Search>>([]);
   Rx<List<Map>> searchResults = Rx<List<Map>>([]);
 
-  void getSearchResult(int? index) async {
-    if (index == null && searchKeywords.value.isNotEmpty) {
+  Future<void> getSearchResult(int? index, bool isKeywordId) async {
+    if (isKeywordId) {
+      Get.toNamed(Routes.result, arguments: {"id": index});
+    }
+    if (index != null) {
+      Get.toNamed(Routes.result,
+          arguments: {"id": searchKeywords.value[index]});
+    } else if (searchKeywords.value.isNotEmpty) {
       Get.toNamed(Routes.result, arguments: {"id": searchKeywords.value[0].id});
     } else {
       //TODO: 404 page 예외 화면으로 이동
     }
   }
+
+  bool isLoading = false;
 
   @override
   void onInit() {
@@ -68,12 +76,20 @@ class HomePageController extends GetxController with StateMixin {
     });
 
     textEditingController.addListener(() async {
-      searchKeyword.value = textEditingController.text;
-      if (searchKeyword.value.isNotEmpty) {
-        searchKeywords.value =
-            await restApiClient.getSearchKeyword(textEditingController.text);
-      }
+      await getKeywords();
     });
+  }
+
+  Future<void> getKeywords() async {
+    searchKeyword.value = textEditingController.text;
+
+    if (searchKeyword.value.isNotEmpty && !isLoading) {
+      isLoading = true;
+
+      searchKeywords.value =
+          await restApiClient.getSearchKeyword(searchKeyword.value);
+      isLoading = false;
+    }
   }
 
   void clearSearchKeyword() {

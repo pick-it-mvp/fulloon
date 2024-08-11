@@ -23,8 +23,9 @@ class HomePage extends GetView<HomePageController> {
         borderRadius: BorderRadius.circular(33.5),
       ),
       child: TextField(
+        onSubmitted: (val) => controller.getSearchResult(null, false),
         controller: controller.textEditingController,
-        onEditingComplete: () => controller.getSearchResult,
+        onEditingComplete: controller.getKeywords,
         focusNode: controller.focusNode,
         cursorColor: PickItColors.primaryColor,
         style: PickItTextTheme.bodyBD16Medium
@@ -100,12 +101,13 @@ class HomePage extends GetView<HomePageController> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 24),
                     child: Obx(() {
-                      if (controller.isTyping) {
-                        return _isTyping();
-                      }
                       if (controller.isSearching.value) {
                         return _isSearching();
                       }
+                      if (controller.isTyping) {
+                        return _isTyping();
+                      }
+
                       return _isNotSearching();
                     }),
                   ),
@@ -129,9 +131,11 @@ class HomePage extends GetView<HomePageController> {
             itemCount: controller.searchKeywords.value.length,
             separatorBuilder: (context, index) => const SizedBox(height: 16),
             itemBuilder: (context, index) {
-              Search keyword = controller.searchKeywords.value[index];
-              return GestureDetector(
-                onTap: () => controller.getSearchResult(keyword.id),
+              final keyword = controller.searchKeywords.value[index];
+              return TapWell(
+                onTap: () async {
+                  await controller.getSearchResult(keyword.id, true);
+                },
                 child: Row(
                   children: [
                     const Icon(Icons.search, color: Color(0xff747474)),
@@ -148,6 +152,7 @@ class HomePage extends GetView<HomePageController> {
     );
   }
 
+  ///* 최근 검색어
   Column _isSearching() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,7 +167,9 @@ class HomePage extends GetView<HomePageController> {
               itemBuilder: (context, index) {
                 Search keyword = controller.searchHistories.value[index];
                 return GestureDetector(
-                  onTap: () => controller.getSearchResult(keyword.id),
+                  onTap: () {
+                    controller.getSearchResult(keyword.id, true);
+                  },
                   child: Row(
                     children: [
                       const Icon(Icons.search, color: Color(0xff747474)),
