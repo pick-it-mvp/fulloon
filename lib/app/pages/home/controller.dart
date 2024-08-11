@@ -10,21 +10,22 @@ import '../../data/models/search/search.dart';
 import '../../routes/route.dart';
 
 enum Category {
-  menu("School food", Svgs.forkKnife),
-  snack("Snack", Svgs.cookie),
-  produce("Produce", Svgs.carrot),
-  meat("Meat", Svgs.lovely),
-  fish("Fish", Svgs.fish),
-  meal("Meal", Svgs.breadSlice),
-  cheese("Milk", Svgs.cheese),
-  ramen("Ramen", Svgs.bowlHot),
-  iceCream("Ice Cream", Svgs.iceCream),
-  beverage("Beverage", Svgs.martiniGlass);
+  menu("School food", Svgs.forkKnife, 1),
+  snack("Snack", Svgs.cookie, 10),
+  produce("Produce", Svgs.carrot, 2),
+  meat("Meat", Svgs.lovely, 3),
+  fish("Fish", Svgs.fish, 4),
+  meal("Meal", Svgs.breadSlice, 5),
+  cheese("Milk", Svgs.cheese, 6),
+  ramen("Instant", Svgs.bowlHot, 7),
+  iceCream("Ice Cream", Svgs.iceCream, 8),
+  beverage("Beverage", Svgs.martiniGlass, 9);
 
-  const Category(this.name, this.iconUrl);
+  const Category(this.name, this.iconUrl, this.id);
 
   final String name;
   final String iconUrl;
+  final int id;
 }
 
 class HomePageController extends GetxController with StateMixin {
@@ -42,17 +43,25 @@ class HomePageController extends GetxController with StateMixin {
 
   bool get isTyping => searchKeyword.value.isNotEmpty;
 
-  Rx<List<Map>> searchHistories = Rx<List<Map>>([]);
+  Rx<List<Search>> searchHistories = Rx<List<Search>>([]);
   Rx<List<Search>> searchKeywords = Rx<List<Search>>([]);
   Rx<List<Map>> searchResults = Rx<List<Map>>([]);
 
-  void getSearchResult(int? index) async {
-    Get.toNamed(Routes.result, arguments: {
-      "id": index == null && searchKeywords.value.isEmpty
-          ? searchKeywords.value[0].id
-          : index
-    });
+  Future<void> getSearchResult(int? index, bool isKeywordId) async {
+    if (isKeywordId) {
+      Get.toNamed(Routes.result, arguments: {"id": index});
+    }
+    if (index != null) {
+      Get.toNamed(Routes.result,
+          arguments: {"id": searchKeywords.value[index]});
+    } else if (searchKeywords.value.isNotEmpty) {
+      Get.toNamed(Routes.result, arguments: {"id": searchKeywords.value[0].id});
+    } else {
+      //TODO: 404 page 예외 화면으로 이동
+    }
   }
+
+  bool isLoading = false;
 
   @override
   void onInit() {
@@ -67,12 +76,20 @@ class HomePageController extends GetxController with StateMixin {
     });
 
     textEditingController.addListener(() async {
-      searchKeyword.value = textEditingController.text;
-      if (searchKeyword.value.isNotEmpty) {
-        searchKeywords.value =
-            await restApiClient.getSearchKeyword(textEditingController.text);
-      }
+      await getKeywords();
     });
+  }
+
+  Future<void> getKeywords() async {
+    searchKeyword.value = textEditingController.text;
+
+    if (searchKeyword.value.isNotEmpty && !isLoading) {
+      isLoading = true;
+
+      searchKeywords.value =
+          await restApiClient.getSearchKeyword(searchKeyword.value);
+      isLoading = false;
+    }
   }
 
   void clearSearchKeyword() {
@@ -83,7 +100,7 @@ class HomePageController extends GetxController with StateMixin {
 
   void deleteSearchHistory(int id) async {
     await restApiClient.deleteSearchHistory(id);
-    searchHistories.value.removeWhere((element) => element["id"] == id);
+    searchHistories.value.removeWhere((element) => element.id == id);
     searchHistories.refresh();
   }
 }

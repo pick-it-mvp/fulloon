@@ -47,37 +47,62 @@ class SearchResultScreen extends GetView<SearchResultController> {
                           children: [
                             Stack(
                               children: [
-                                Container(
-                                  clipBehavior: Clip.hardEdge,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(30),
-                                      bottomRight: Radius.circular(30),
-                                    ),
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        PickItColors.c000000.withOpacity(0.1),
-                                        PickItColors.c000000,
-                                      ],
-                                      begin: Alignment.center,
-                                      end: Alignment.bottomLeft,
-                                    ),
-                                  ),
-                                  child: CachedImage(
-                                    url: controller.food.value!.image,
-                                    width: double.infinity,
+                                Positioned(
+                                  child: Container(
+                                    width: 390.w,
                                     height: 442.w,
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(30),
+                                        bottomRight: Radius.circular(30),
+                                      ),
+                                    ),
+                                    child: Stack(
+                                      children: [
+                                        // Image on top
+                                        CachedImage(
+                                          url: Environment.imgBaseUrl +
+                                              controller.food.value!.image,
+                                          width: 390.w,
+                                          height: 442.w,
+                                          fit: BoxFit
+                                              .cover, // Ensure the image covers the container
+                                        ),
+                                        // Gradient background
+                                        Positioned(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                colors: [
+                                                  PickItColors.c000000
+                                                      .withOpacity(0.1),
+                                                  PickItColors.c000000,
+                                                ],
+                                                begin: Alignment.center,
+                                                end: Alignment.bottomLeft,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Positioned(
                                   top: 50.w,
                                   right: 3.5.w,
                                   child: Image.asset(
-                                    controller.food.value!.status == "GOOD" ? Images.imgGoodEmoji : Images.imgBadEmoji,
+                                    controller.food.value!.status == "GOOD"
+                                        ? Images.imgGoodEmoji
+                                        : Images.imgBadEmoji,
                                     width: 227.w,
                                   ),
                                 ),
-                                Positioned(bottom: 30.w, left: 16.w, child: _topInfoSection()),
+                                Positioned(
+                                    bottom: 30.w,
+                                    left: 16.w,
+                                    child: _topInfoSection()),
                               ],
                             ),
                             SizedBox(
@@ -89,22 +114,32 @@ class SearchResultScreen extends GetView<SearchResultController> {
                                 children: [
                                   Text(
                                     "Summary",
-                                    style: PickItTextTheme.bodyBD18Semibold.copyWith(color: PickItColors.c121212),
+                                    style: PickItTextTheme.bodyBD18Semibold
+                                        .copyWith(color: PickItColors.c121212),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 16.w),
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 16.w),
                                     child: Text(
                                       controller.food.value!.desc,
-                                      style: PickItTextTheme.bodyBD16Regular.copyWith(color: PickItColors.c121212),
+                                      style: PickItTextTheme.bodyBD16Regular
+                                          .copyWith(
+                                              color: PickItColors.c121212),
                                     ),
                                   ),
-                                  if ((controller.food.value!.crawlings ?? []).isNotEmpty)
+                                  if ((controller.food.value!.crawlings ?? [])
+                                      .isNotEmpty)
                                     ...List.generate(
-                                      controller.food.value!.crawlings.length > 2 ? 2 : controller.food.value!.crawlings.length,
+                                      controller.food.value!.crawlings.length >
+                                              2
+                                          ? 2
+                                          : controller
+                                              .food.value!.crawlings.length,
                                       (idx) => SummerySection(
                                         imojiText: controller.emojis[idx],
                                         title: "외부 리뷰",
-                                        body: controller.food.value!.crawlings[idx]["desc"],
+                                        body: controller
+                                            .food.value!.crawlings[idx]["desc"],
                                         isStartAlign: idx % 2 == 0,
                                       ),
                                     )
@@ -116,7 +151,8 @@ class SearchResultScreen extends GetView<SearchResultController> {
                               children: [
                                 Text(
                                   "TIP",
-                                  style: PickItTextTheme.bodyBD18Semibold.copyWith(
+                                  style:
+                                      PickItTextTheme.bodyBD18Semibold.copyWith(
                                     color: PickItColors.c121212,
                                   ),
                                 ),
@@ -124,19 +160,28 @@ class SearchResultScreen extends GetView<SearchResultController> {
                                   padding: EdgeInsets.symmetric(vertical: 16.w),
                                   child: Text(
                                     controller.food.value!.desc,
-                                    style: PickItTextTheme.bodyBD16Regular.copyWith(color: PickItColors.c121212),
+                                    style: PickItTextTheme.bodyBD16Regular
+                                        .copyWith(color: PickItColors.c121212),
                                   ),
                                 ),
                                 ...List.generate(
-                                    (controller.food.value!.tips ?? []).length > 3 ? 3 : (controller.food.value!.tips ?? []).length,
+                                    (controller.food.value!.tips ?? []).length >
+                                            3
+                                        ? 3
+                                        : (controller.food.value!.tips ?? [])
+                                            .length,
                                     (idx) => Padding(
                                           padding: EdgeInsets.only(
                                             top: idx == 0 ? 0 : 44.w,
                                           ),
                                           child: SummarySectionWithNum(
                                             idx: idx,
-                                            title: (controller.food.value!.tips ?? [])[idx],
-                                            body: (controller.food.value!.tips ?? [])[idx],
+                                            title:
+                                                (controller.food.value!.tips ??
+                                                    [])[idx],
+                                            body:
+                                                (controller.food.value!.tips ??
+                                                    [])[idx],
                                           ),
                                         ))
                               ],
@@ -147,7 +192,8 @@ class SearchResultScreen extends GetView<SearchResultController> {
                                 children: [
                                   Text(
                                     "Recommendation",
-                                    style: PickItTextTheme.bodyBD18Semibold.copyWith(color: PickItColors.c121212),
+                                    style: PickItTextTheme.bodyBD18Semibold
+                                        .copyWith(color: PickItColors.c121212),
                                   ),
                                   SizedBox(
                                     height: 16.w,
@@ -170,11 +216,16 @@ class SearchResultScreen extends GetView<SearchResultController> {
             ),
 
             /// 앱바
-            SizedBox(
-              height: kToolbarHeight, // AppBar 높이
-              child: AnimatedBuilder(
-                animation: controller.colorAnimationController,
-                builder: (context, build) => Obx(_appBar),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: SizedBox(
+                height: kToolbarHeight, // AppBar 높이
+                child: AnimatedBuilder(
+                  animation: controller.colorAnimationController,
+                  builder: (context, build) => Obx(_appBar),
+                ),
               ),
             ),
           ],
@@ -202,7 +253,8 @@ class SearchResultScreen extends GetView<SearchResultController> {
           ),
           Text(
             controller.food.value?.name ?? "",
-            style: PickItTextTheme.bodyBD16Regular.copyWith(color: PickItColors.c121212),
+            style: PickItTextTheme.bodyBD16Regular
+                .copyWith(color: PickItColors.c121212),
           ),
           TapWell(
             onTap: Get.back,

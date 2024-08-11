@@ -9,6 +9,7 @@ import 'package:juction/app/core/util/global_convert.dart';
 import 'package:juction/app/data/service/auth/service.dart';
 import '../environment.dart';
 import '../models/food/food.dart';
+import '../models/food/food_preview.dart';
 import '../models/search/search.dart';
 
 part 'pickit_dio_interceptor.dart';
@@ -85,12 +86,12 @@ class RestApiClient {
   //   };
   // }
 
-  Future<List<Map>> getSearchHistory(int id) async {
+  Future<List<Search>> getSearchHistory(int id) async {
     final response = await (await dio).get('/users/$id/search');
 
     Log.d(response.data.toString());
 
-    return (response.data as List).map((e) => e as Map).toList();
+    return jsonToListLessDepth(response.data, Search.fromJson) ?? [];
   }
 
   Future<void> deleteSearchHistory(int id) async {
@@ -114,10 +115,10 @@ class RestApiClient {
     return Food.fromJson(response.data);
   }
 
-  Future<Food?> getCategories(int id) async {
+  Future<List<FoodPreview>> getCategories(int id) async {
     final response = await (await dio).get('/foods/categories/$id');
-    if (response.statusCode != 200) return null;
-    return Food.fromJson(response.data);
+    if (response.statusCode != 200) return [];
+    return jsonToListLessDepth(response.data, FoodPreview.fromJson) ?? [];
   }
 
   Future<void> registerUser(Map<String, dynamic> data) async {

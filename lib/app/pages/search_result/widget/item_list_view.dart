@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:juction/app/core/theme/global_text_styles.dart';
 import 'package:juction/app/widgets/util/cached_image.dart';
 
+import '../../../data/environment.dart';
 import '../../../data/models/food/food.dart';
 import 'keyword_chip.dart';
 
@@ -39,7 +40,7 @@ class PickItItemListView extends StatelessWidget {
                       ),
                       clipBehavior: Clip.hardEdge,
                       child: CachedImage(
-                        url: food.image,
+                        url: Environment.imgBaseUrl + food.image,
                         width: 86.w,
                         height: 86.w,
                       ),

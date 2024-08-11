@@ -16,6 +16,7 @@ class Environment {
     return "${dotenv.env['API_BASE_URL']!}";
   }
 
+
   static String get imageBaseUrl {
     assert(dotenv.env['IMAGE_BASE_URL'] != null);
     return "${dotenv.env['IMAGE_BASE_URL']!}";
