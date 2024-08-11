@@ -29,8 +29,7 @@ enum Category {
 }
 
 class HomePageController extends GetxController with StateMixin {
-  static HomePageController get to =>
-      Get.find<HomePageController>(); // add this line
+  static HomePageController get to => Get.find<HomePageController>(); // add this line
 
   final FocusNode focusNode = FocusNode();
   final TextEditingController textEditingController = TextEditingController();
@@ -43,7 +42,7 @@ class HomePageController extends GetxController with StateMixin {
 
   bool get isTyping => searchKeyword.value.isNotEmpty;
 
-  Rx<List<Search>> searchHistories = Rx<List<Search>>([]);
+  Rx<List<Map>> searchHistories = Rx<List<Map>>([]);
   Rx<List<Search>> searchKeywords = Rx<List<Search>>([]);
   Rx<List<Map>> searchResults = Rx<List<Map>>([]);
 
@@ -52,8 +51,7 @@ class HomePageController extends GetxController with StateMixin {
       Get.toNamed(Routes.result, arguments: {"id": index});
     }
     if (index != null) {
-      Get.toNamed(Routes.result,
-          arguments: {"id": searchKeywords.value[index]});
+      Get.toNamed(Routes.result, arguments: {"id": index});
     } else if (searchKeywords.value.isNotEmpty) {
       Get.toNamed(Routes.result, arguments: {"id": searchKeywords.value[0].id});
     } else {
@@ -86,8 +84,7 @@ class HomePageController extends GetxController with StateMixin {
     if (searchKeyword.value.isNotEmpty && !isLoading) {
       isLoading = true;
 
-      searchKeywords.value =
-          await restApiClient.getSearchKeyword(searchKeyword.value);
+      searchKeywords.value = await restApiClient.getSearchKeyword(searchKeyword.value);
       isLoading = false;
     }
   }
@@ -100,7 +97,7 @@ class HomePageController extends GetxController with StateMixin {
 
   void deleteSearchHistory(int id) async {
     await restApiClient.deleteSearchHistory(id);
-    searchHistories.value.removeWhere((element) => element.id == id);
+    searchHistories.value.removeWhere((element) => element["id"] == id);
     searchHistories.refresh();
   }
 }

@@ -40,7 +40,7 @@ class PickItItemListView extends StatelessWidget {
                       ),
                       clipBehavior: Clip.hardEdge,
                       child: CachedImage(
-                        url: Environment.imgBaseUrl + food.image,
+                        url: Environment.imageBaseUrl + food.image,
                         width: 86.w,
                         height: 86.w,
                       ),

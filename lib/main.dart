@@ -38,7 +38,7 @@ class PickItApp extends StatelessWidget {
         ],
         localizationsDelegates: [GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate],
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.onboarding,
+        initialRoute: Routes.root,
         initialBinding: RootPageBinding(),
         smartManagement: SmartManagement.full,
         navigatorKey: Get.key,

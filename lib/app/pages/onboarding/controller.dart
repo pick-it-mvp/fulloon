@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:juction/app/data/provider/pickit_rest_api_client.dart';
 import 'package:juction/app/pages/onboarding/view/birth.dart';
 import 'package:juction/app/pages/onboarding/view/gender.dart';
+import 'package:juction/app/routes/route.dart';
 
 class OnboardingPageController extends GetxController with StateMixin {
   static OnboardingPageController get to => Get.find<OnboardingPageController>(); // add this line
@@ -145,11 +146,6 @@ class OnboardingPageController extends GetxController with StateMixin {
   }
 
   void signUp() async {
-    if (year.value == 0 || month.value == 0 || day.value == 0) {
-      Get.snackbar("생년월일을 입력해주세요", "생년월일을 입력해주세요");
-      return;
-    }
-
     String userMode = birth ? "embryo" : "baby";
 
     DateTime? childBirth = null;
@@ -174,5 +170,6 @@ class OnboardingPageController extends GetxController with StateMixin {
     };
 
     await restApiClient.registerUser(data);
+    Get.offAllNamed(Routes.root);
   }
 }

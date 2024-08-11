@@ -20,7 +20,6 @@ class CategorySelectPage extends GetView<CategorySelectController> {
     return Scaffold(
       body: Container(
         color: PickItColors.cFFFFFF,
-
         child: SafeArea(
           child: Obx(
             () => Column(
@@ -54,9 +53,7 @@ class CategorySelectPage extends GetView<CategorySelectController> {
                       children: List.generate(
                         controller.categories.value.length,
                         (idx) => TapWell(
-                          onTap: () => Get.toNamed(Routes.result, arguments: {
-                            "id": controller.categories.value[idx].id
-                          }),
+                          onTap: () => Get.toNamed(Routes.result, arguments: {"id": controller.categories.value[idx].id}),
                           child: SizedBox(
                             height: 140.w,
                             width: 109.w,
@@ -71,10 +68,7 @@ class CategorySelectPage extends GetView<CategorySelectController> {
                                   ),
                                   clipBehavior: Clip.hardEdge,
                                   child: CachedImage(
-                                    url: Environment.imgBaseUrl +
-                                        (controller
-                                                .categories.value[idx]!.image ??
-                                            ""),
+                                    url: Environment.imageBaseUrl + (controller.categories.value[idx]!.image ?? ""),
                                   ),
                                 ),
                                 SizedBox(
@@ -82,8 +76,7 @@ class CategorySelectPage extends GetView<CategorySelectController> {
                                 ),
                                 Text(
                                   controller.categories.value[idx].name ?? "",
-                                  style: PickItTextTheme.bodyBD14Medium
-                                      .copyWith(color: PickItColors.c121212),
+                                  style: PickItTextTheme.bodyBD14Medium.copyWith(color: PickItColors.c121212),
                                 ),
                               ],
                             ),
@@ -119,8 +112,7 @@ class CategorySelectPage extends GetView<CategorySelectController> {
           ),
           Text(
             controller.category.name,
-            style: PickItTextTheme.bodyBD16Regular
-                .copyWith(color: PickItColors.c121212),
+            style: PickItTextTheme.bodyBD16Regular.copyWith(color: PickItColors.c121212),
           ),
           SizedBox(
             width: 24.w,

@@ -86,12 +86,12 @@ class RestApiClient {
   //   };
   // }
 
-  Future<List<Search>> getSearchHistory(int id) async {
+  Future<List<Map>> getSearchHistory(int id) async {
     final response = await (await dio).get('/users/$id/search');
 
     Log.d(response.data.toString());
 
-    return jsonToListLessDepth(response.data, Search.fromJson) ?? [];
+    return jsonToListLessDepth(response.data, (json) => json as Map) ?? [];
   }
 
   Future<void> deleteSearchHistory(int id) async {
