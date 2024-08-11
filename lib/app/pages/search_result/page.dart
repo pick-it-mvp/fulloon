@@ -275,8 +275,8 @@ class SearchResultScreen extends GetView<SearchResultController> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgPicture.asset(
-              Svgs.lovely,
+            SvgPicture.network(
+              "${Environment.imageBaseUrl}${controller.food.value!.category["image"]}",
               width: 24.w,
               height: 24.w,
               color: PickItColors.cFFFFFF,

@@ -1,0 +1,10 @@
+#flutter pub run flutter_native_splash:create
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: "assets/images/Fulloon_color.png"
+  #branding: "assets/images/Fulloon.png"
+
+  color_dark: "#fe0084"
+  image_dark: "assets/images/Fulloon.png"
+  #branding_dark: "assets/images/Fulloon.png"

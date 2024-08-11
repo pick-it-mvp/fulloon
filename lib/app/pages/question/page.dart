@@ -66,10 +66,7 @@ class QuestionPage extends GetView<QuestionPageController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("🔍 Search", style: PickItTextTheme.bodyBD20Semibold),
-                      GestureDetector(
-                        onTap: () => Get.to(() => const QuestionDetailPage()),
-                        child: SvgPicture.asset(Svgs.arrowRight),
-                      ),
+                      SvgPicture.asset(Svgs.arrowRight),
                     ],
                   ),
                   const SizedBox(height: 16),
@@ -162,71 +159,74 @@ class SearchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 20,
-                      height: 20,
-                      color: Colors.grey,
-                    ),
-                    const SizedBox(width: 8),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text("Sky Mommy · ", style: PickItTextTheme.bodyBD14Medium),
-                        Text("28W", style: PickItTextTheme.bodyBD12Regular.copyWith(color: PickItColors.primaryColor)),
-                      ],
-                    ),
-                  ],
-                ),
-                Expanded(child: SizedBox()),
-                Row(
-                  children: [
-                    SizedBox(width: 16, height: 16, child: SvgPicture.asset(svg_file)),
-                    const SizedBox(width: 8),
-                    Text(title, style: PickItTextTheme.bodyBD16Medium.copyWith(color: PickItColors.primaryColor)),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Text("What is the best food for your health?", style: PickItTextTheme.bodyBD16Medium),
-            const SizedBox(height: 8),
-            Text(
-              "Since pregnant women eat cheese, it has a risk of eating cheese, so far. But every cheese is not...",
-              style: PickItTextTheme.bodyBD12Regular,
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  SvgPicture.asset(Svgs.eye),
-                  const SizedBox(width: 4),
-                  Text("42,452", style: PickItTextTheme.bodyBD10Regular.copyWith(color: PickItColors.primaryColor)),
-                  const SizedBox(width: 4),
-                  SvgPicture.asset(Svgs.like),
-                  const SizedBox(width: 4),
-                  Text("3,523", style: PickItTextTheme.bodyBD10Regular.copyWith(color: PickItColors.primaryColor)),
-                ]),
-                Text("2024.10.10 ", style: PickItTextTheme.bodyBD10Medium),
-              ],
-            ),
-          ],
+    return GestureDetector(
+      onTap: () => Get.to(() => const QuestionDetailPage()),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 20,
+                        height: 20,
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(width: 8),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("Sky Mommy · ", style: PickItTextTheme.bodyBD14Medium),
+                          Text("28W", style: PickItTextTheme.bodyBD12Regular.copyWith(color: PickItColors.primaryColor)),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Expanded(child: SizedBox()),
+                  Row(
+                    children: [
+                      SizedBox(width: 16, height: 16, child: SvgPicture.asset(svg_file)),
+                      const SizedBox(width: 8),
+                      Text(title, style: PickItTextTheme.bodyBD16Medium.copyWith(color: PickItColors.primaryColor)),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Text("What is the best food for your health?", style: PickItTextTheme.bodyBD16Medium),
+              const SizedBox(height: 8),
+              Text(
+                "Since pregnant women eat cheese, it has a risk of eating cheese, so far. But every cheese is not...",
+                style: PickItTextTheme.bodyBD12Regular,
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    SvgPicture.asset(Svgs.eye),
+                    const SizedBox(width: 4),
+                    Text("42,452", style: PickItTextTheme.bodyBD10Regular.copyWith(color: PickItColors.primaryColor)),
+                    const SizedBox(width: 4),
+                    SvgPicture.asset(Svgs.like),
+                    const SizedBox(width: 4),
+                    Text("3,523", style: PickItTextTheme.bodyBD10Regular.copyWith(color: PickItColors.primaryColor)),
+                  ]),
+                  Text("2024.10.10 ", style: PickItTextTheme.bodyBD10Medium),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

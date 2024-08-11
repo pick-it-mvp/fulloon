@@ -106,8 +106,8 @@ class RestApiClient {
     return jsonToListLessDepth(response.data, Search.fromJson) ?? [];
   }
 
-  Future<Food?> getSearchResult(int id) async {
-    final response = await (await dio).get('/foods/$id');
+  Future<Food?> getSearchResult(int id, {bool search = false}) async {
+    final response = await (await dio).get('/foods/$id', queryParameters: search ? {'search': true} : null);
 
     Log.d("getSearchResult: ${response.data}");
 
@@ -119,5 +119,10 @@ class RestApiClient {
     final response = await (await dio).get('/foods/categories/$id');
     if (response.statusCode != 200) return [];
     return jsonToListLessDepth(response.data, FoodPreview.fromJson) ?? [];
+  }
+
+  Future<void> registerUser(Map<String, dynamic> data) async {
+    final response = await (await dio).post('/auth/sign-up', data: data);
+    Log.d("registerUser: ${response.data}");
   }
 }
