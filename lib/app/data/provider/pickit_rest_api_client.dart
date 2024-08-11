@@ -119,4 +119,9 @@ class RestApiClient {
     if (response.statusCode != 200) return null;
     return Food.fromJson(response.data);
   }
+
+  Future<void> registerUser(Map<String, dynamic> data) async {
+    final response = await (await dio).post('/auth/sign-up', data: data);
+    Log.d("registerUser: ${response.data}");
+  }
 }

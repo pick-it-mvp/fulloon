@@ -3,4 +3,6 @@ abstract class Routes {
   static const search = "/search";
   static const result = "/result";
   static const question = "/question";
+  static const login = "/login";
+  static const onboarding = "/onboarding";
 }
